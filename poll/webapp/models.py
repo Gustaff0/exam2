@@ -26,3 +26,18 @@ class Choice(models.Model):
     def __str__(self):
         return f'{self.choice_text} - {self.poll}'
 
+class Answer(models.Model):
+    poll = models.ForeignKey('webapp.Poll', on_delete=models.CASCADE, related_name='answer', verbose_name='Опрос')
+    created_at = models.DateTimeField(auto_now_add=True)
+    choice = models.ForeignKey('webapp.Choice', on_delete=models.CASCADE, related_name='answer', verbose_name='Варинат')
+
+    class Meta:
+        db_table = 'Answer'
+        verbose_name = 'Ответ'
+        verbose_name_plural = 'Ответы'
+
+    def __str__(self):
+        return f'{self.poll} - {self.choice}-{self.created_at}'
+
+
+

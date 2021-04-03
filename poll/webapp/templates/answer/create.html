@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Answer</h1>
+    <form method="POST" action="" class="text-center">
+        {% csrf_token %}
+    {% for choice in poll.poll.all %}
+    <p><input type="radio" name="option5" value="{{ choice.pk }}">{{ choice.choice_text }}</p>
+    {% endfor %}
+        <p><input type="submit" value="Отправить"></p>
+    </form>
+
+{% endblock %}

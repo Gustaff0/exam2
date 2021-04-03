@@ -11,6 +11,7 @@
 <body>
 {% block content %}
 <div class="container">
+    <br>
     <h1>Poll</h1>
 <h3>Question : {{ poll.question }}</h3>
 <br>
@@ -18,11 +19,11 @@
 
     <h2>Choices:</h2>
 {% for choice in poll.poll.all %}
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 40rem;">
             <div class="card-body">
                 <h5 class="card-title">{{ choice.choice_text }}</h5>
-                <a href="{% url 'edit_choice' choice.pk %}" class="card-link">Edit</a>
-                <a href="{% url 'delete_choice' choice.pk %}" class="card-link">Delete</a>
+                <a href="{% url 'edit_choice' choice.pk %}" class="btn btn-secondary btn-lg" tabindex="-1" role="button">Edit</a>
+                <a href="{% url 'delete_choice' choice.pk %}" class="btn btn-secondary btn-lg" tabindex="-1" role="button">Delete</a>
             </div>
         </div>
         <br>
@@ -43,6 +44,10 @@
     <li class="nav-item">
       <a class="nav-link active" aria-current="page" href="{% url 'create_choice' poll.pk %}">CreateNewChoice</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'create_answer' poll.pk %}">Answer</a>
+    </li>
+
     {% endblock %}
 
 

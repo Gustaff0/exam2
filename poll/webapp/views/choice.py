@@ -27,6 +27,9 @@ class ChoiceCreate(CreateView):
         choice = form.save(commit=False)
         choice.poll = poll
         choice.save()
+        return super(ChoiceCreate, self).form_valid(form)
+
+    def get_success_url(self):
         return reverse('view', kwargs={'pk': self.object.poll.pk})
 
     def get_context_data(self, **kwargs):
@@ -42,3 +45,4 @@ class ChoiceDelete(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('view', kwargs={'pk': self.object.poll.pk})
+

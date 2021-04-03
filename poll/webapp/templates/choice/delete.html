@@ -13,8 +13,10 @@
 
 
     <h1>Are you sure want to delete Choice "{{ choice }}"?</h1>
-        <a href="{% url 'delete_choice' choice.pk %}" class="btn btn-secondary btn-lg text-center" tabindex="-1" role="button">Yeas</a>
-        <a href="{% url 'view' poll.pk %}" class="btn btn-secondary btn-lg text-center" tabindex="-1" role="button">No</a>
+    <form method="POST" action="{% url "delete_choice" choice.pk %}" class="text-center">
+        {% csrf_token %}
+        <p><input type="submit" value="Yeas!"></p>
+        <a class="btn btn-primary" href="{% url 'view' choice.poll.pk %}" role="button">No!</a>
     </form>
 
 
