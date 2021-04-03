@@ -1,4 +1,4 @@
-{% load static %}
+{% extends 'base.html' %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,26 +6,49 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-        </li>
-        {% block menu %}{% endblock %}
-      </ul>
-    </div>
-  </div>
-</nav>
+{% block content %}
 <div class="container">
-    {% block content %}{% endblock %}
+    <h1>Poll</h1>
+<h3>Question : {{ poll.question }}</h3>
+<br>
+<br>
+
+    <h2>Choices:</h2>
+{% for choice in poll.poll.all %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ choice.choice_text }}</h5>
+                <a href="{% url 'edit_choice' choice.pk %}" class="card-link">Edit</a>
+                <a href="{% url 'delete_choice' choice.pk %}" class="card-link">Delete</a>
+            </div>
+        </div>
+        <br>
+{% if not choice %}
+    <h2>НЕТ ВАРИАНТОВ!</h2>
+{% endif %}
+{% endfor %}
 </div>
+{% endblock %}
+    {% block menu %}
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'delete' poll.pk %}">Delete</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'edit' poll.pk %}">EditPoll</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'create_choice' poll.pk %}">CreateNewChoice</a>
+    </li>
+    {% endblock %}
+
+
+
+
+
 
 
 
